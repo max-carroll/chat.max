@@ -1,6 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import * as React from "react";
-import { E } from "./App";
+import { Event } from "../types/Event";
 
 export interface SelectUsernameProps {
   username: string;
@@ -13,7 +13,7 @@ export function SelectUsername({
   onUpdate,
   onJoin,
 }: SelectUsernameProps) {
-  const handleUpdate = (event: E) => {
+  const handleUpdate = (event: Event) => {
     onUpdate(event.target.value);
   };
 

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Chat } from "./Chat";
-import { SelectUsername } from "./SelectUsername";
+import { Chat } from "./components/Chat";
+import { SelectUsername } from "./components/SelectUsername";
 
 interface AppState {
   username: string;
@@ -31,7 +31,5 @@ function App() {
     </>
   );
 }
-
-export type E = React.ChangeEvent<HTMLTextAreaElement>;
 
 export default App;
