@@ -1,0 +1,22 @@
+{
+    "extends": [
+      "typescript",
+      "typescript/prettier"    
+    ],
+    "plugins": ["filenames",],
+    "env": {    
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "filenames/no-index": "error",
+      "prettier/prettier": [
+        "error",
+        {
+          "semi": false,
+          "tabWidth": 4,
+          "singleQuote": true
+        }
+      ]
+    }
+  }
