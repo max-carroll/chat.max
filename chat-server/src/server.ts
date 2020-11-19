@@ -1,4 +1,4 @@
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import express from 'express';
 import {Server, Socket } from 'socket.io';
 
@@ -9,6 +9,10 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+app.get('/api/messages', (req: any, res: any) => {
+  res.send(`I received your GET request. This is what you sent me: ${req.body.post}`);
+})
 
 // messages
 app.post('/api/messages', (req: any, res: any) => {
