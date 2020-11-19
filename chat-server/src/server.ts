@@ -10,22 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({origin: "http://localhost:3000"}))
 
 type user = {username: string}
-
 var users : Array<user> = []
 
-io.on('connection', () => {
-  console.log('a user connected');
-});
+io.on('connection', () => console.log('a user connected'));
+http.listen(5001, () => console.log('listening on *:5001'));
 
-io.on('connection', () => {
-  console.log('a user connected');
-});
 
-http.listen(5001, () => {
-  console.log('listening on *:5001');
-});
-
- 
 app.get('/api/messages', (req: any, res: any) => {
   res.send(`I received your GET request. This is what you sent me: ${req.body.post}`);
 })

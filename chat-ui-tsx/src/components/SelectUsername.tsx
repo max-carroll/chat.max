@@ -17,9 +17,19 @@ export function SelectUsername({
     onUpdate(event.target.value);
   };
 
+  const handleKeyUp = (event: React.KeyboardEvent) => {
+    if (event.key.toLowerCase() === "enter") {
+      onJoin();
+    }
+  };
+
   return (
     <>
-      <TextField value={username} onChange={handleUpdate} />
+      <TextField
+        value={username}
+        onChange={handleUpdate}
+        onKeyUp={handleKeyUp}
+      />
       <Button onClick={onJoin}>Let Me In!!</Button>
     </>
   );
