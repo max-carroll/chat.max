@@ -9,8 +9,8 @@ interface AppState {
 
 function App() {
   const [state, setState] = React.useState<AppState>({
-    username: "max",
-    hasJoined: true,
+    username: "",
+    hasJoined: false,
   });
 
   const { username, hasJoined } = state;
