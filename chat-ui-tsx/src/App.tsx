@@ -5,18 +5,25 @@ import { SelectUsername } from "./components/SelectUsername";
 interface AppState {
   username: string;
   hasJoined: boolean;
+  users: Array<string>;
 }
 
 function App() {
   const [state, setState] = React.useState<AppState>({
     username: "",
     hasJoined: false,
+    users: [],
   });
 
-  const { username, hasJoined } = state;
+  const { username, hasJoined, users } = state;
   const handleUpdate = (username: string) =>
     setState((old) => ({ ...old, username }));
-  const handleJoin = () => setState((old) => ({ ...old, hasJoined: true }));
+  const handleJoin = () =>
+    setState((old) => ({
+      ...old,
+      hasJoined: true,
+      users: [...old.users, username],
+    }));
   return (
     <>
       <h1>chat.max 2</h1>
@@ -27,7 +34,7 @@ function App() {
           onJoin={handleJoin}
         />
       )}
-      {hasJoined && <Chat username={username} />}
+      {hasJoined && <Chat username={username} users={users} />}
     </>
   );
 }

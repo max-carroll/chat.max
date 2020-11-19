@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-export function Chat({ username }: ChatProps) {
+export function Chat({ username, users }: ChatProps) {
   const classes = useStyles();
 
   const {
@@ -55,7 +55,7 @@ export function Chat({ username }: ChatProps) {
   return (
     <>
       <Grid container className={classes.root}>
-        <Grid item className={classes.col} xs={6}>
+        <Grid item className={classes.col} xs={8} md={6}>
           <div className={classes.messages}>
             {messages?.map((m) => (
               <div className={classes.messageLine}>
@@ -76,8 +76,12 @@ export function Chat({ username }: ChatProps) {
           </div>
         </Grid>
 
-        <Grid item xs={2} className={classes.col}>
-          <div className={classes.sidePanel}></div>
+        <Grid item xs={4} md={2} className={classes.col}>
+          <div className={classes.sidePanel}>
+            {users.map((u) => (
+              <div className={classes.messageLine}>{u}</div>
+            ))}
+          </div>
         </Grid>
       </Grid>
     </>
