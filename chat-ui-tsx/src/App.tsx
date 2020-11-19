@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Chat } from "./components/Chat";
-import io from "socket.io-client";
 import { SelectUsername } from "./components/SelectUsername";
+import { apiUrl } from "./Settings";
 
 interface AppState {
   username: string;
@@ -11,16 +11,16 @@ interface AppState {
 
 function App() {
   const [state, setState] = React.useState<AppState>({
-    username: "",
-    hasJoined: false,
+    username: "max",
+    hasJoined: true,
     users: [],
   });
 
   React.useEffect(() => {
-    const socket = io("http://localhost:3000");
-    socket.on("UserJoined", (data: any) => {
-      setState((old) => ({ ...old, users: [...old.users, data] }));
-    });
+    // const socket = io(apiUrl);
+    // socket.on("UserJoined", (data: any) => {
+    //   setState((old) => ({ ...old, users: [...old.users, data] }));
+    // });
   }, []);
 
   const { username, hasJoined, users } = state;
