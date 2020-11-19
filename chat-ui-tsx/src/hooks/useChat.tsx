@@ -4,6 +4,7 @@ import { ChatState } from "../models";
 import axios from "axios";
 import { apiUrl } from "../Settings";
 import io from "socket.io-client";
+import { Message } from "../models/Message";
 
 export function useChat(username: string) {
   const [state, setState] = React.useState<ChatState>({
@@ -17,9 +18,8 @@ export function useChat(username: string) {
       host: "localhost:5001",
     };
     const socket = io.connect(apiUrl, options);
-    socket.on("MessageReceived", (newMessage: any) => {
-      alert(`message ${newMessage}`);
-      setState((old) => ({ ...old, messages: [...old.messages, newMessage] }));
+    socket.on("MessageReceived", (message: Message) => {
+      setState((old) => ({ ...old, messages: [...old.messages, message] }));
     });
   }, []);
 
@@ -38,13 +38,8 @@ export function useChat(username: string) {
   const handleSubmit = async () => {
     if (!isValid(message)) return;
 
-    await axios.post(`${apiUrl}/api/messages`, { message });
-    // setState((old) => ({
-    //   ...old,
-    //   messages: [...old.messages, { text: message, username }],
-    //   message: "",
-    // }));
-
+    await axios.post(`${apiUrl}/api/messages`, { message, username });
+    setState((old) => ({ ...old, message: "" }));
     // TODO broadcast websocket
   };
 
