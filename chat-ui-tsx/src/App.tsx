@@ -11,6 +11,8 @@ interface AppState {
   users: Array<string>;
 }
 
+type User = { username: string };
+
 function App() {
   const [state, setState] = React.useState<AppState>({
     username: "",
@@ -21,9 +23,11 @@ function App() {
   React.useEffect(() => {
     if (state.hasJoined) return;
     const socket = io(apiUrl);
-    socket.on("UserJoined", (user: any) => {
-      console.log({ user });
-      setState((old) => ({ ...old, users: [...old.users, user.username] }));
+    socket.on("UserJoined", (users: Array<User>) => {
+      setState((old) => ({
+        ...old,
+        users: users.map((u) => u.username),
+      }));
     });
   }, [state.hasJoined]);
 
@@ -33,7 +37,11 @@ function App() {
     setState((old) => ({ ...old, username }));
 
   const handleJoin = async () => {
-    await axios.post(`${apiUrl}/api/join`, { username: state.username });
+    var response = await axios.post<Array<User>>(`${apiUrl}/api/join`, {
+      username: state.username,
+    });
+    var { data: users } = response;
+    console.log(users);
     setState((old) => ({
       ...old,
       hasJoined: true,

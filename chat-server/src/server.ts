@@ -9,6 +9,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({origin: "http://localhost:3000"}))
 
+type user = {username: string}
+
+var users : Array<user> = []
+
 io.on('connection', () => {
   console.log('a user connected');
 });
@@ -28,8 +32,12 @@ app.get('/api/messages', (req: any, res: any) => {
 
 app.post('/api/join', (req: any, res: any) => {
   const {username} = req.body
-  io.emit("UserJoined", {username}) 
-  res.send()
+
+  if (!users.some(u=> u.username === username)) {
+    users.push({username})
+  }
+  io.emit("UserJoined", users) 
+  res.send(users)
 })
 
 app.post('/api/messages', (req: any, res: any) => {
