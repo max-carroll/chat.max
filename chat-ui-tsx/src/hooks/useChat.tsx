@@ -13,11 +13,7 @@ export function useChat(username: string) {
   });
 
   React.useEffect(() => {
-    const options: SocketIOClient.ConnectOpts = {
-      port: "5001",
-      host: "localhost:5001",
-    };
-    const socket = io.connect(apiUrl, options);
+    const socket = io.connect(apiUrl);
     socket.on("MessageReceived", (message: Message) => {
       setState((old) => ({ ...old, messages: [...old.messages, message] }));
     });
