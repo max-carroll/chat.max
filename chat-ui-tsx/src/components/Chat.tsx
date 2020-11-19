@@ -12,10 +12,8 @@ const boxy = {
 
 const useStyles = makeStyles({
   root: {
-    //    border: "1px solid black",
     height: "80vh",
     display: "flex",
-    //  flexDirection: "column",
   },
   col: {
     display: "flex",
